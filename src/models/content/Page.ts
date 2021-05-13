@@ -1,5 +1,4 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import * as mongoose from 'mongoose';
 import ComponentType from './ComponentType'
 
 interface IPage {

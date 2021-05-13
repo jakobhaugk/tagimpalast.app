@@ -1,7 +1,7 @@
-import { Page, PageModel, IPage } from './models/Page'
+import { Page, PageModel, IPage } from '../models/content/Page'
 
 
-const getPages = async function(filter: any = {}) {
+const getPages = async function(filter: any = {}): Promise<Page[]> {
   return await PageModel.find(filter);
 }
 
@@ -26,4 +26,9 @@ const deletePage = async function(slug: string): Promise<boolean> {
 }
 
 
-export { getPages, createPage, getPageDetails, updatePage, deletePage }
+
+
+
+
+
+export { getPages, updatePage, createPage, deletePage, getPageDetails }
