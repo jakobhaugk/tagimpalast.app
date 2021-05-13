@@ -1,24 +1,33 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
+import * as mongoose from 'mongoose';
 import ComponentType from './ComponentType'
 
-class Page {
+interface IPage {
+  slug?: string,
+  menuLabel?: string,
+  backgroundColor?: string,
+  componentType?: ComponentType,
+  componentData?: any,
+}
 
-  @prop({ unique: true })
+class Page implements IPage {
+
+  @prop({ unique: true, match: /^[a-z0-9]+(?:-[a-z0-9]+)*$/ })
   public slug: string;
 
   @prop()
-  public menuLabel: string;
+  public menuLabel?: string;
 
   @prop()
-  public backgroundColor: string;
+  public backgroundColor?: string;
 
   @prop({ enum: ComponentType })
   public componentType: ComponentType;
 
   @prop({ select: false })
-  public componentData: any;
+  public componentData?: any;
 }
 
 const PageModel = getModelForClass(Page);
 
-export { PageModel, Page }
+export { PageModel, Page, IPage }
