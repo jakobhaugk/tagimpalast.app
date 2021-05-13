@@ -4,6 +4,7 @@ import * as express from 'express'
 import * as mongoose from 'mongoose';
 
 import router from './router';
+import { handleLogin } from './auth'
 
 const { PORT, HOST } = process.env
 
@@ -31,6 +32,8 @@ app.get('/', (req, res) => res.sendFile(path.join(landingPagePath, 'index.html')
 
 app.use(express.json());
 
+
+app.post('/login', handleLogin)
 app.use('/api', router)
 
 mongoose.connect(MONGO_URI, mongoOptions).then(() => {

@@ -6,5 +6,10 @@ const createUser = async function(input: IUserInput) {
   return user;
 }
 
+const getUser = async function(username: string) {
+  return await UserModel.findOne({ username });
+}
 
-export { createUser }
+
+
+export { createUser, getUser }

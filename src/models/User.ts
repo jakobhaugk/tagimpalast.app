@@ -10,6 +10,10 @@ interface IUserInput extends IUserBase {
   password: string
 }
 
+interface IUserOutput extends IUserBase {
+
+}
+
 interface IUser extends IUserBase {
   passwordHash: string,
 }
@@ -40,4 +44,4 @@ class User implements IUser {
 
 const UserModel = getModelForClass(User)
 
-export { User, IUser, UserModel, IUserInput }
+export { User, IUser, UserModel, IUserInput, IUserOutput }
