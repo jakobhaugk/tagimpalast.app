@@ -7,6 +7,7 @@ const handleRequestJSON = async function (req, res, fn: (req?, res?) => Promise<
   try {
     result.data = await fn(req, res);
   } catch (e) {
+    console.log(e)
     result.status = Status.Failure;
     result.msg = e.message || JSON.stringify(e);
   }

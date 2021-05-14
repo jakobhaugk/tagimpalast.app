@@ -20,15 +20,8 @@ const createUser = async function (req, res) {
 const getUser = async function (req, res) {
 
   const fn = async (req) => {
-
     const { username } = req.user
-    if (!username) throw new Error()
-
-    const user = await op.getUser(username);
-
-    delete user.passwordHash;
-
-    return user as IUserOutput;
+    return !!username;
   }
 
   handleRequestJSON(req, res, fn);

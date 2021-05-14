@@ -23,6 +23,6 @@ router.delete('/page/:slug', verifyRequest, content.deletePage)
 router.use('/user', verifyRequest)
 
 router.put('/user', user.createUser)
-// router.get('/user', user.getUser)
+router.get('/user', user.getUser)
 
 export default router;

@@ -7,7 +7,7 @@ import { checkUserPassword } from './util/crypto'
 
 
 const { ACCESS_TOKEN_SECRET } = process.env
-const loginPagePath = path.resolve(__dirname, '..', 'static', 'login.html')
+const loginPageFile = path.resolve(__dirname, '..', 'static', 'login.html')
 
 const getToken = async function (userInput: IUserInput) {
 
