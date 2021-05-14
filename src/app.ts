@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 
 import router from './router';
 import { handleLogin, verifyRequest } from './auth'
+import constants from './const'
 
 const { PORT, HOST } = process.env
 
@@ -18,16 +19,18 @@ const mongoOptions = {
 const app = express();
 
 
-// static serving
+// static file serving
 
-const staticPath = path.resolve(__dirname, '..', 'static')
-const landingPagePath = path.join(staticPath, 'landingpage')
-const adminPagePath = path.join(staticPath, 'admin')
+const { imagePath, landingPagePath, adminPagePath } = constants;
+
 app.use('/', express.static(landingPagePath));
-app.use('/admin', express.static(adminPagePath));
-
 app.get('/', (req, res) => res.sendFile(path.join(landingPagePath, 'index.html')))
+
+app.use('/admin', express.static(adminPagePath));
 app.get('/admin', (req, res) => res.sendFile(path.join(adminPagePath, 'index.html')))
+
+app.use('/images', express.static(imagePath))
+
 
 // api
 

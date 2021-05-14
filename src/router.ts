@@ -1,8 +1,10 @@
 import * as express from 'express'
+import * as fileUpload from 'express-fileupload'
 
 import * as content from './api/content-api'
 import * as user from './api/user-api'
 import { verifyRequest } from './auth'
+import { handleFileUpload } from './util/handlers'
 
 const router = express.Router();
 
@@ -24,5 +26,12 @@ router.use('/user', verifyRequest)
 
 router.put('/user', user.createUser)
 router.get('/user', user.getUser)
+
+
+// uploads
+
+router.use(fileUpload())
+
+router.put('/image', handleFileUpload)
 
 export default router;

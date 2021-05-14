@@ -7,7 +7,7 @@ const getPages = async function(filter: any = {}): Promise<Page[]> {
 }
 
 const getPageDetails = async function(slug: string): Promise<Page> {
-  const page = await PageModel.findOne({ slug }, '+componentData').exec();
+  const page = await PageModel.findOne({ slug }, '+components').exec();
   return page
 }
 

@@ -1,12 +1,11 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import ComponentType from './ComponentType'
+import { Component } from './Component'
 
 interface IPage {
   slug?: string,
   menuLabel?: string,
   backgroundColor?: string,
-  componentType?: ComponentType,
-  componentData?: any,
+  components?: Component[],
 }
 
 class Page implements IPage {
@@ -20,11 +19,9 @@ class Page implements IPage {
   @prop()
   public backgroundColor?: string;
 
-  @prop({ enum: ComponentType })
-  public componentType: ComponentType;
+  @prop({ type: Component, default: [], select: false })
+  public components?: Component[];
 
-  @prop({ select: false })
-  public componentData?: any;
 }
 
 const PageModel = getModelForClass(Page);
