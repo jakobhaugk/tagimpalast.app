@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.18",
+    "mongoose": "5.10.18",
+    "optional-require": "^1.0.3",
     "slugify": "^1.5.3",
     "ts-node": "^9.1.1"
   },
