@@ -5,7 +5,7 @@ import * as cors from 'cors'
 import * as mongoose from 'mongoose';
 
 import router from './router';
-import { handleLogin, verifyRequest } from './auth'
+import { handleLogin } from './auth'
 import constants from './const'
 
 const { PORT, HOST } = process.env
@@ -23,11 +23,11 @@ const app = express();
 
 const { imagePath, landingPagePath, adminPagePath } = constants;
 
-app.use('/', express.static(landingPagePath));
-app.get('/', (req, res) => res.sendFile(path.join(landingPagePath, 'index.html')))
-
 app.use('/admin', express.static(adminPagePath));
 app.get('/admin', (req, res) => res.sendFile(path.join(adminPagePath, 'index.html')))
+
+app.use('/', express.static(landingPagePath));
+app.get('/', (req, res) => res.sendFile(path.join(landingPagePath, 'index.html')))
 
 app.use('/images', express.static(imagePath))
 
