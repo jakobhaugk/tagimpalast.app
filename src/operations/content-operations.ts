@@ -16,9 +16,12 @@ const getPageDetails = async function(slug: string, options?: IGetContentOptions
   
   const page = await PageModel.findOne({ slug }, '+components').exec();
 
+  if (!page)
+    return null;
+
   if (!options.includePrivate)
     page.components = page.components.filter((c: Component) => c.public)
-    
+
   return page
 }
 
