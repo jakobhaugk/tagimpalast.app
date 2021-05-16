@@ -7,6 +7,7 @@ enum ComponentType {
 
 interface IComponent {
   type: ComponentType,
+  public?: boolean,
   data?: any,
 }
 
@@ -15,6 +16,9 @@ class Component implements IComponent {
   
   @prop({ required: true })
   type: ComponentType;
+
+  @prop({ default: true })
+  public: boolean;
 
   @prop()
   data: any;

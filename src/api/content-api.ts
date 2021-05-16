@@ -4,7 +4,8 @@ import { handleRequestJSON } from '../util/handlers'
 
 const getPages = async function (req, res) {
 
-  const fn = async () => await op.getPages();
+  const includePrivate = req.headers.preview === '1';
+  const fn = async () => await op.getPages({ includePrivate });
 
   handleRequestJSON(req, res, fn);
 
@@ -17,7 +18,8 @@ const getPage = async function (req, res) {
     const { slug } = req.params;
     if ( !slug ) throw new Error('missing slug');
 
-    const page = await op.getPageDetails(slug);
+    const includePrivate = req.headers.preview === '1';
+    const page = await op.getPageDetails(slug, { includePrivate });
     if (!page) throw new Error('not found');
 
     return page;

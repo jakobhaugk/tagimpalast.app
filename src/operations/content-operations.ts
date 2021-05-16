@@ -1,13 +1,24 @@
+import { Component } from '../models/content/Component';
 import { Page, PageModel, IPage } from '../models/content/Page'
 const slugify = require('slugify')
 
+interface IGetContentOptions {
+  includePrivate: boolean,
+}
 
-const getPages = async function(filter: any = {}): Promise<Page[]> {
+const getPages = async function(options?: IGetContentOptions): Promise<Page[]> {
+
+  const filter = options.includePrivate ? {} : { public: true }
   return await PageModel.find(filter);
 }
 
-const getPageDetails = async function(slug: string): Promise<Page> {
+const getPageDetails = async function(slug: string, options?: IGetContentOptions): Promise<Page> {
+  
   const page = await PageModel.findOne({ slug }, '+components').exec();
+
+  if (!options.includePrivate)
+    page.components = page.components.filter((c: Component) => c.public)
+    
   return page
 }
 

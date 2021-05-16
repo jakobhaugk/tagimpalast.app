@@ -6,6 +6,7 @@ interface IPage {
   menuLabel?: string,
   backgroundColor?: string,
   components?: Component[],
+  public?: boolean,
 }
 
 class Page implements IPage {
@@ -21,6 +22,9 @@ class Page implements IPage {
 
   @prop({ type: Component, default: [], select: false })
   public components?: Component[];
+
+  @prop({ default: false })
+  public public: boolean;
 
 }
 
