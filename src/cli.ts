@@ -31,5 +31,6 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
       break;
   }
 
+  process.exit(0)
+  
 })
-
