@@ -15,16 +15,25 @@ class Page implements IPage {
   public slug: string;
 
   @prop()
-  public menuLabel?: string;
+  public menuLabel: string;
 
   @prop()
-  public backgroundColor?: string;
+  public backgroundColor: string;
 
   @prop({ type: Component, default: [], select: false })
-  public components?: Component[];
+  public components: Component[];
 
   @prop({ default: false })
   public public: boolean;
+
+  constructor () {
+    this.slug = ''
+    this.menuLabel = ''
+    this.backgroundColor = 'red'
+    this.components = [],
+    this.public = false
+  }
+
 
 }
 

@@ -1,3 +1,4 @@
+import { Page } from '../models/content/Page';
 import * as op  from '../operations/content-operations'
 import { handleRequestJSON } from '../util/handlers'
 
@@ -17,6 +18,8 @@ const getPage = async function (req, res) {
 
     const { slug } = req.params;
     if ( !slug ) throw new Error('missing slug');
+
+    if (slug === 'new') return new Page()
 
     const includePrivate = req.headers.preview === '1';
     const page = await op.getPageDetails(slug, { includePrivate });
