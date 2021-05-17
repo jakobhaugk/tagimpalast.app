@@ -11,7 +11,7 @@ interface IPage {
 
 class Page implements IPage {
 
-  @prop({ unique: true, match: /^[a-z0-9]+(?:-[a-z0-9]+)*$/ })
+  @prop({ unique: true, type: String, match: /^[a-z0-9]+(?:-[a-z0-9]+)*$/ })
   public slug: string;
 
   @prop()
