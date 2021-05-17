@@ -19,7 +19,7 @@ const getPage = async function (req, res) {
     const { slug } = req.params;
     if ( !slug ) throw new Error('missing slug');
 
-    if (slug === 'new') return new Page()
+    if (slug === 'new') return Page.empty();
 
     const includePrivate = req.headers.preview === '1';
     const page = await op.getPageDetails(slug, { includePrivate });

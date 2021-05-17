@@ -27,6 +27,7 @@ const getPageDetails = async function(slug: string, options?: IGetContentOptions
 
 const createPage = async function(input: IPage): Promise<Page> {
   input.slug = slugify(input.menuLabel.toLowerCase())
+  if (!input.slug) throw new Error('invalid menu label');
   const page = await PageModel.create(input as Page);
   return page;
 }

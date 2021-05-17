@@ -26,12 +26,14 @@ class Page implements IPage {
   @prop({ default: false })
   public public: boolean;
 
-  constructor () {
-    this.slug = ''
-    this.menuLabel = ''
-    this.backgroundColor = 'red'
-    this.components = [],
-    this.public = false
+  static empty() {
+    const page = new Page()
+    page.backgroundColor = 'red',
+    page.slug = '',
+    page.menuLabel = ''
+    page.components = []
+    page.public = false
+    return page;
   }
 
 
