@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "es2018",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "outDir": "./dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "src/dist"
-  }
+  },
+  "include": [ "./src/*" ],
+  "exclude": [ "node_modules", "**/*.spec.ts", "dist" ]
 }
