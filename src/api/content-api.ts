@@ -55,6 +55,9 @@ const updatePage = async function (req, res) {
     const { page } = req.body;
     if (!page) throw new Error('missing page in body');
 
+    // remove component id from input
+    page.components.forEach(p => delete p._id);
+
     await op.updatePage(slug, page);
     return null;
   }
