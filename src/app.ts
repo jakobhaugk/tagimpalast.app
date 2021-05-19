@@ -75,10 +75,12 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
       console.log(`https server running on ${HOST}:${HTTPS_PORT}`)
     })
 
-  }
+  } else {
 
-  httpServer.listen(HTTP_PORT || 80, () => {
-    console.log(`http server running on ${HOST}:${HTTP_PORT}`)
-  })
+    httpServer.listen(HTTP_PORT || 80, () => {
+      console.log(`http server running on ${HOST}:${HTTP_PORT}`)
+    })
+
+  }
 })
 
