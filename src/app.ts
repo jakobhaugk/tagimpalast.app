@@ -67,7 +67,6 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
     const credentials = {
       key: fs.readFileSync(process.env.SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.SSL_CERT, 'utf-8'),
-      ca: fs.readFileSync(process.env.SSL_CA, 'utf-8'),
     }
   
     const httpsServer = https.createServer(credentials, app)
