@@ -26,6 +26,9 @@ const { imagePath, landingPagePath, adminPagePath, previewPagePath } = constants
 
 const app = express();
 
+// certbot verification
+app.use('/.well-known', express.static(path.resolve(__dirname, '..', 'static', '.well-known')))
+
 // admin app
 app.use('/admin', express.static(adminPagePath));
 app.get('/admin', (req, res) => res.sendFile(path.join(adminPagePath, 'index.html')))
@@ -33,6 +36,7 @@ app.get('/admin', (req, res) => res.sendFile(path.join(adminPagePath, 'index.htm
 // mirror of landing page app for preview purposes
 app.use('/preview', express.static(previewPagePath));
 app.get('/preview', (req, res) => res.sendFile(path.join(previewPagePath, 'index.html')))
+
 
 // landingpage app
 app.use('/', express.static(landingPagePath));
