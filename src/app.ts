@@ -64,6 +64,13 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
 
   if (PRODUCTION === '1') {
 
+    // https redirect
+    app.enable('trust proxy')
+    app.use((req, res, next) => {
+      if (req.secure) return next();
+      else res.redirect(`https://${req.headers.host}${req.url}`)
+    })
+
     const credentials = {
       key: fs.readFileSync(process.env.SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.SSL_CERT, 'utf-8'),
