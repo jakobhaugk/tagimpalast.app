@@ -12,6 +12,9 @@ import router from './router';
 import { handleLogin } from './auth'
 import constants from './const'
 
+import injectSocketIO from './api/chat-api'
+
+
 const { HTTP_PORT, HTTPS_PORT, HOST, PRODUCTION } = process.env
 
 const { MONGO_URI } = process.env;
@@ -60,15 +63,14 @@ app.use('/api', router)
 
 const httpServer = http.createServer(app)
 
-const io = new Server(httpServer, {
+const httpIO = new Server(httpServer, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
   },
   allowEIO3: true,
 });
-import injectSocketIO from './api/chat-api'
-injectSocketIO(io);
+injectSocketIO(httpIO);
 
 mongoose.connect(MONGO_URI, mongoOptions).then(() => {
 
@@ -87,6 +89,15 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
     }
 
     const httpsServer = https.createServer(credentials, app)
+
+    const httpsIO = new Server(httpsServer, {
+      cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+      },
+      allowEIO3: true,
+    });
+    injectSocketIO(httpsIO)
 
     httpsServer.listen(HTTPS_PORT || 443, () => {
       console.log(`https server running on ${HOST}:${HTTPS_PORT}`)
