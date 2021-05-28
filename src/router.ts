@@ -3,6 +3,7 @@ import * as fileUpload from 'express-fileupload'
 
 import * as content from './api/content-api'
 import * as user from './api/user-api'
+import * as chat from './api/chat-api'
 import { verifyRequest } from './auth'
 import { handleFileUpload } from './util/handlers'
 
@@ -33,5 +34,13 @@ router.get('/user', user.getUser)
 router.use(fileUpload())
 
 router.put('/image', handleFileUpload)
+
+
+// chat
+
+router.put('/chat', chat.createMessage)
+
+router.get('/chat', verifyRequest, chat.getMessages)
+router.post('/chat/answer/:id', verifyRequest, chat.setAnswered)
 
 export default router;

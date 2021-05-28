@@ -8,4 +8,6 @@ globals.adminPagePath = path.join(globals.staticPath, 'admin');
 globals.landingPagePath = path.join(globals.staticPath, 'landingpage');
 globals.previewPagePath = path.join(globals.staticPath, 'landingpage-preview');
 
+globals.chatMaxChars = 2500;
+
 export default globals;

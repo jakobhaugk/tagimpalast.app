@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 import * as fs from 'fs'
 import * as http from 'http'
 import * as https from 'https'
+import { Server } from 'socket.io'
 
 import router from './router';
 import { handleLogin } from './auth'
@@ -50,7 +51,7 @@ app.use('/images', express.static(imagePath))
 // rest api 
 
 app.use(express.json());
-app.use(cors())
+app.use(cors({ origin: '*' }))
 
 // routes
 app.post('/login', handleLogin)
@@ -59,6 +60,15 @@ app.use('/api', router)
 
 const httpServer = http.createServer(app)
 
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+  allowEIO3: true,
+});
+import injectSocketIO from './api/chat-api'
+injectSocketIO(io);
 
 mongoose.connect(MONGO_URI, mongoOptions).then(() => {
 
@@ -75,7 +85,7 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
       key: fs.readFileSync(process.env.SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.SSL_CERT, 'utf-8'),
     }
-  
+
     const httpsServer = https.createServer(credentials, app)
 
     httpsServer.listen(HTTPS_PORT || 443, () => {

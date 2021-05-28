@@ -46,8 +46,4 @@ const deletePage = async function(slug: string): Promise<boolean> {
 
 
 
-
-
-
-
 export { getPages, updatePage, createPage, deletePage, getPageDetails }
