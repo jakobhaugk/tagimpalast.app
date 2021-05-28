@@ -1,8 +1,9 @@
 import { Server } from 'socket.io'
 
-import { ChatMessage } from '../models/ChatMessage';
 import * as op from '../operations/chat-operations';
 import { handleRequestJSON } from '../util/handlers';
+import constants from '../const'
+import { sendMails } from '../util/mailer'
 
 let io: Server;
 
@@ -29,6 +30,15 @@ const createMessage = async function (req, res) {
     const newMessage = await op.createMessage(req.body);
 
     io.emit('newMessage', newMessage);
+
+    const { forwardChatTo } = constants;
+    if (forwardChatTo && forwardChatTo.length > 0) {
+      const message = `
+        ${newMessage.message}\n\n
+        Uhrzeit: ${newMessage.createdAt.toLocaleTimeString()}
+      `
+      sendMails(forwardChatTo, message);
+    }
 
     return null;
   }
