@@ -79,8 +79,8 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
     // https redirect
     app.enable('trust proxy')
     app.use((req, res, next) => {
-      if (req.secure) return next();
-      else res.redirect(`https://${req.headers.host}${req.url}`)
+      if (req.secure || req.url.includes('.well-known')) return next();
+      else res.redirect(`https://${req.headers.host}${req.url}`);
     })
 
     const credentials = {
@@ -103,12 +103,12 @@ mongoose.connect(MONGO_URI, mongoOptions).then(() => {
       console.log(`https server running on ${HOST}:${HTTPS_PORT}`)
     })
 
-  } else {
-
-    httpServer.listen(HTTP_PORT || 80, () => {
-      console.log(`http server running on ${HOST}:${HTTP_PORT}`)
-    })
-
   }
+
+  httpServer.listen(HTTP_PORT || 80, () => {
+    console.log(`http server running on ${HOST}:${HTTP_PORT}`)
+  })
+
+  
 })
 
